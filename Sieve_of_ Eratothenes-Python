@@ -1,0 +1,31 @@
+import numpy as np 	# using numpy for arrays
+limit = int(input("Discover prime numbers less than: "))	# get user limit
+nums =  np.full((limit+1),1,dtype=bool)	# array of booleans corresponding to primeness of each number within user limit 
+nums[0] = False 		# 0 is not prime
+nums[1] = False 		# 1 is not prime
+p = 2					# 2 is the first prime
+done = False			# indicates when the sieve is finished
+primes = np.array([])	# array for all primes
+
+# loop until sieve is complete
+while(done==False):
+	# mark all multiples of previous prime as composite (False)
+	for i in range(p+1,nums.size):
+		if (i%p == 0):
+			nums[i] = False
+	# find next prime
+	for i in range(p+1,nums.size):
+		if nums[i] == True:
+			p = i
+			break
+	# stop once current prime is greater than 
+	if(p > (np.sqrt(nums.size))):
+		done = True
+
+print("Primes: ")
+for i in range(nums.size):
+	if nums[i] == True:
+		primes = np.append(primes,i)
+print(primes)
+print("Number of primes: ")
+print(primes.size)
